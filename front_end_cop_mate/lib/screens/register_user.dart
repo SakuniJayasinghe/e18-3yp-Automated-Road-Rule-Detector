@@ -9,7 +9,9 @@ import 'package:front_end_cop_mate/elements/textfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:front_end_cop_mate/screens/login_screen.dart';
+import 'package:front_end_cop_mate/screens/welcome_screen.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:front_end_cop_mate/bottomnavgationbar.dart';
 
 class register_user extends StatefulWidget {
   static const String id = 'register_user';
@@ -54,7 +56,7 @@ class _register_userState extends State<register_user> {
         labelText: "Email",
         icon: Icon(
           FontAwesomeIcons.envelope,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Email",
         hintStyle: TextStyle(color: Colors.grey),
@@ -76,7 +78,6 @@ class _register_userState extends State<register_user> {
 
         return null;
       },
-      keyboardType: TextInputType.number,
       onSaved: (value) {
         if (value != null && value.isNotEmpty) {
           policeid = value;
@@ -88,7 +89,7 @@ class _register_userState extends State<register_user> {
         labelText: "Id",
         icon: Icon(
           FontAwesomeIcons.idCard,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Id",
         hintStyle: TextStyle(color: Colors.grey),
@@ -121,7 +122,7 @@ class _register_userState extends State<register_user> {
         labelText: "Password",
         icon: Icon(
           FontAwesomeIcons.key,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Password",
         hintStyle: TextStyle(color: Colors.grey),
@@ -155,7 +156,7 @@ class _register_userState extends State<register_user> {
         labelText: "Confirm Password",
         icon: Icon(
           FontAwesomeIcons.key,
-          color: Colors.black,
+          color: Colors.white,
         ),
         hintText: "Confirm Password",
         hintStyle: TextStyle(color: Colors.grey),
@@ -174,28 +175,29 @@ class _register_userState extends State<register_user> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text('Cop Mate'),
-        backgroundColor: Colors.indigo,
+        backgroundColor: Color(0xFF518BB8),
       ),
       body: SingleChildScrollView(
         child: ModalProgressHUD(
           inAsyncCall: showSpinner,
           child: SafeArea(
             child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    Colors.indigo.shade200,
-                    Colors.deepOrange.shade200,
-                  ],
-                ),
-              ),
+              // decoration: BoxDecoration(
+              //   gradient: LinearGradient(
+              //     begin: Alignment.topRight,
+              //     end: Alignment.bottomLeft,
+              //     colors: [
+              //       Colors.indigo.shade200,
+              //       Colors.deepOrange.shade200,
+              //     ],
+              //   ),
+              // ),
+              color: Color(0xFF234E70),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 10,
-                  ),
+                  // SizedBox(
+                  //   height: 10,
+                  // ),
                   heading(
                       string: "Register",
                       icon: FontAwesomeIcons.user,
@@ -271,7 +273,8 @@ class _register_userState extends State<register_user> {
                                         content: SingleChildScrollView(
                                           child: ListBody(
                                             children: const <Widget>[
-                                              Text('Login to Continue.'),
+                                              Text(
+                                                  'Registered Successfully. Login to continue'),
                                             ],
                                           ),
                                         ),
@@ -279,24 +282,30 @@ class _register_userState extends State<register_user> {
                                           TextButton(
                                             child: const Text('Okay'),
                                             onPressed: () {
-                                              Navigator.of(context).pop();
+                                              Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          welcome_screen()),
+                                                  (r) => false);
                                             },
                                           ),
                                         ],
                                       );
                                     },
                                   );
-                                  Navigator.pushNamed(context, login_screen.id);
                                 }
                               } catch (e) {
                                 print(e);
                               }
                             },
-                            child: Text("Register"),
+                            child: Text("Register",
+                                style: TextStyle(color: Colors.black)),
                             style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll<Color>(
-                                        Colors.deepOrangeAccent),
+                                  Color(0xFFFBF8BE),
+                                ),
                                 minimumSize: MaterialStatePropertyAll<Size>(
                                     Size(100, 40))),
                           ),

@@ -33,8 +33,8 @@ class _settingsState extends State<settings> {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Colors.indigo.shade200,
-                Colors.deepOrange.shade200,
+                Color(0xFF234E70),
+                Colors.white,
               ],
             ),
           ),
@@ -83,12 +83,42 @@ class _settingsState extends State<settings> {
                           backgroundColor:
                               MaterialStatePropertyAll<Color>(Colors.white)),
                       onPressed: () {
-                        auth.signOut();
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => welcome_screen()),
-                            (r) => false);
+                        showDialog<void>(
+                          context: context,
+                          barrierDismissible: false, // user must tap button!
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text('Log Out?'),
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  children: <Widget>[
+                                    Text('Do you want to log out?'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Confirm'),
+                                  onPressed: () async {
+                                    auth.signOut();
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                welcome_screen()),
+                                        (r) => false);
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('Cancel'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       child: Row(
                         children: [
